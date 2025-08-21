@@ -107,7 +107,7 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
   const callOpenAI = async (message) => {
     const persona = personas[currentPersona];
 
-    const response = await fetch("http://localhost:5000/api/chat", {
+    const response = await fetch("https://persona-ai-chattingbot-1.onrender.com/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
