@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Send, MessageCircle } from "lucide-react";
 import "./PersonaChatbot.css";
-
+import TypingDots from "./TypingDots";
 const PersonaChatbot = () => {
   const [currentPersona, setCurrentPersona] = useState("hitesh");
   const [messagesByPersona, setMessagesByPersona] = useState({
@@ -16,6 +16,7 @@ const PersonaChatbot = () => {
     
     hitesh: {
       name: "Hitesh Choudhary",
+      code: "HC",
       icon: "Tea",
       info: "Chai aur Code • Practical Learning • Industry Focus",
       primary: "#FF6B35",
@@ -53,6 +54,7 @@ Remember to sound exactly like Hitesh - warm, encouraging, practical, and with t
 
     piyush: {
       name: "Piyush Garg",
+      code: "PG",
       icon: "ZAP",
       info: "Modern React • Latest Tech • High Energy Content",
       primary: "#6366F1",
@@ -189,7 +191,7 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
                   onClick={() => switchPersona(key)}
                   disabled={isTyping}
                 >
-                  <div className="persona-avatar" aria-hidden>{persona.name.charAt(0)}</div>
+                  <div className="persona-avatar persona-code" aria-hidden>{persona.code || persona.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}</div>
                   <div className="persona-meta">
                     <div className="persona-name">{persona.name}</div>
                     <div className="persona-info">{persona.info}</div>
@@ -210,10 +212,10 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
 
           <section className="messages">
             {currentMessages.length === 0 ? (
-              <div className="empty-state">
+              <div className="empty-state" style={{color:"#FFFFFF",textWrap:"wrap"}}>
                 <div className="empty-icon"><MessageCircle size={40} /></div>
                 <div className="empty-title">Chat with {currentPersona_.name}</div>
-                <div className="empty-subtitle">Ask about coding, technology, or career advice.</div>
+                <div className="empty-subtitle" style={{textWrap:"wrap"}}>Ask about coding, technology, or career advice.</div>
               </div>
             ) : (
               <>
@@ -235,13 +237,14 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
                     </div>
                   );
                 })}
-                {isTyping && <div className="typing">{currentPersona_.name} is typing…</div>}
+                {isTyping && 
+                
+                <TypingDots></TypingDots>
+                }
                 <div ref={messagesEndRef} />
               </>
             )}
-          </section>
-
-          <footer className="input-bar">
+            <footer className="input-bar">
             <textarea
               className="input-textarea"
               value={inputMessage}
@@ -260,6 +263,9 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
               <Send size={18} />
             </button>
           </footer>
+          </section>
+
+        
         </main>
       </div>
     </div>
