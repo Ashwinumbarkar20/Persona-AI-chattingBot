@@ -448,7 +448,7 @@ body {
 
   /* The messages section should be the only scrollable element */
   .messages {
-    flex-grow: 1; /* This makes it fill all available space between header and input */
+     /* This makes it fill all available space between header and input */
     padding: 1rem;
     overflow-y: auto;
     scrollbar-width: none;
