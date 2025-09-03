@@ -436,7 +436,7 @@ body {
   .chat-pane {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Allows it to fill the remaining space of .chat-container */
+   /* Allows it to fill the remaining space of .chat-container */
     height: 100%; /* Important to make flexbox work */
   }
 
