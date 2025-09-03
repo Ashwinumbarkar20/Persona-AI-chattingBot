@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { Send, MessageCircle } from "lucide-react";
-import "./PersonaChatbot.css";
+import { Send, MessageCircle, Menu, X, User } from "lucide-react";
+import "./PersonaChatbot.css"; 
 import TypingDots from "./TypingDots";
+
 const PersonaChatbot = () => {
   const [currentPersona, setCurrentPersona] = useState("hitesh");
   const [messagesByPersona, setMessagesByPersona] = useState({
@@ -10,18 +11,19 @@ const PersonaChatbot = () => {
   });
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
- const personas = {
-    
+  const personas = {
     hitesh: {
       name: "Hitesh Choudhary",
       code: "HC",
-      icon: "Tea",
+      icon: "☕",
       info: "Chai aur Code • Practical Learning • Industry Focus",
       primary: "#FF6B35",
       secondary: "#F7931E",
-      light: "#000 ",
+      light: "#000",
       dark: "#000",
       accent: "#000",
       systemPrompt: `You are Hitesh Choudhary, a popular Indian programming instructor and YouTuber. Your characteristics:
@@ -55,7 +57,7 @@ Remember to sound exactly like Hitesh - warm, encouraging, practical, and with t
     piyush: {
       name: "Piyush Garg",
       code: "PG",
-      icon: "ZAP",
+      icon: "⚡",
       info: "Modern React • Latest Tech • High Energy Content",
       primary: "#6366F1",
       secondary: "#8B5CF6",
@@ -101,30 +103,42 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentMessages, isTyping]);
 
+  useEffect(() => {
+    if (!isTyping) {
+      inputRef.current?.focus();
+    }
+  }, [currentPersona, isTyping]);
+
   const switchPersona = (persona) => {
     if (isTyping) return;
     setCurrentPersona(persona);
+    setIsSidebarOpen(false); 
   };
 
   const callOpenAI = async (message) => {
     const persona = personas[currentPersona];
 
-    const response = await fetch("https://persona-ai-chattingbot.onrender.com/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        persona: persona.systemPrompt,
-        message,
-      }),
-    });
+    try {
+      const response = await fetch("https://persona-ai-chattingbot.onrender.com/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          persona: persona.systemPrompt,
+          message,
+        }),
+      });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || "API request failed");
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "API request failed");
+      }
+
+      const data = await response.json();
+      return data.reply;
+    } catch (error) {
+      console.error("API Call Error:", error);
+      throw error;
     }
-
-    const data = await response.json();
-    return data.reply;
   };
 
   const sendMessage = async () => {
@@ -161,7 +175,6 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
       }));
     } finally {
       setIsTyping(false);
-     
     }
   };
 
@@ -177,9 +190,13 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
   return (
     <div className="chat-root" style={{ "--accent": currentPersona_.primary }}>
       <div className="chat-container">
-        <aside className="sidebar">
+        {/* Sidebar */}
+        <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
           <div className="sidebar-header">
             <span className="brand">Mentors</span>
+            <button className="close-sidebar-btn" onClick={() => setIsSidebarOpen(false)}>
+              <X size={24} />
+            </button>
           </div>
           <div className="persona-list">
             {Object.entries(personas).map(([key, persona]) => {
@@ -191,7 +208,7 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
                   onClick={() => switchPersona(key)}
                   disabled={isTyping}
                 >
-                  <div className="persona-avatar persona-code" aria-hidden>{persona.code || persona.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}</div>
+                  <div className="persona-avatar" aria-hidden>{persona.code || persona.name.charAt(0)}</div>
                   <div className="persona-meta">
                     <div className="persona-name">{persona.name}</div>
                     <div className="persona-info">{persona.info}</div>
@@ -202,57 +219,65 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
           </div>
         </aside>
 
+        {/* Main Chat Pane */}
         <main className="chat-pane">
+          {/* Navbar/Header */}
           <header className="chat-header">
+            <button className="menu-btn" onClick={() => setIsSidebarOpen(true)}>
+              <Menu size={24} />
+            </button>
             <div className="header-meta">
               <div className="header-title">{currentPersona_.name}</div>
               <div className="header-subtitle">{currentPersona_.info}</div>
             </div>
           </header>
 
+          {/* Messages Section */}
           <section className="messages">
             {currentMessages.length === 0 ? (
-              <div className="empty-state" style={{color:"#FFFFFF",textWrap:"wrap"}}>
+              <div className="empty-state">
                 <div className="empty-icon"><MessageCircle size={40} /></div>
                 <div className="empty-title">Chat with {currentPersona_.name}</div>
-                <div className="empty-subtitle" style={{textWrap:"wrap"}}>Ask about coding, technology, or career advice.</div>
+                <div className="empty-subtitle">Ask about coding, technology, or career advice.</div>
               </div>
             ) : (
-              <>
-                {currentMessages.map((message) => {
-                  const isUser = message.type === "user";
-                  return (
-                    <div key={message.id} className={`message-row ${isUser ? "user" : "bot"}`}>
-                      {isUser ? (
-                        <>
-                          <div className={`bubble user`}>{message.content}</div>
-                          <div className="message-avatar you">Y</div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="message-avatar">{currentPersona_.name.charAt(0)}</div>
-                          <div className={`bubble ${message.isError ? "error" : "bot"}`}>{message.content}</div>
-                        </>
-                      )}
+              currentMessages.map((message) => {
+                const isUser = message.type === "user";
+                return (
+                  <div key={message.id} className={`message-row ${isUser ? "user" : "bot"}`}>
+                  <div className="message-avatar">
+                      {isUser ? <User size={20} /> : <div className="avatar-icon">{currentPersona_.code}</div>}
                     </div>
-                  );
-                })}
-                {isTyping && 
-                
-                <TypingDots></TypingDots>
-                }
-                <div ref={messagesEndRef} />
-              </>
+                    <div className={`bubble ${isUser ? "user" : "bot"}`}>
+                      {message.content}
+                    </div>
+                    
+                  </div>
+                );
+              })
             )}
-            <footer className="input-bar">
+            {isTyping && (
+              <div className="message-row bot typing">
+                <div className="message-avatar">
+                  <div className="avatar-icon">{currentPersona_.code}</div>
+                </div>
+                <TypingDots />
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </section>
+
+          {/* Input Bar */}
+          <footer className="input-bar">
             <textarea
               className="input-textarea"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder={`Ask ${currentPersona_.name} anything…`}
-              rows="2"
+              rows="1"
               disabled={isTyping}
+              ref={inputRef}
             />
             <button
               className="send-button"
@@ -260,12 +285,9 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
               disabled={!inputMessage.trim() || isTyping}
               aria-label="Send message"
             >
-              <Send size={18} />
+              <Send size={24} />
             </button>
           </footer>
-          </section>
-
-        
         </main>
       </div>
     </div>
