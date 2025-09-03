@@ -434,13 +434,14 @@ body {
 
   .chat-pane {
     flex-grow: 1;
-    overflow-y: auto;
-    position: relative;
+    display: flex; /* Make it a flex container */
+    flex-direction: column; /* Stack children vertically */
+    height: 100%; 
   }
 
   .chat-header {
     justify-content: flex-start;
-    position: fixed;
+    
   }
 
   .messages {
@@ -454,8 +455,6 @@ body {
     max-width: 90%;
   }
 .input-bar{
-  position: absolute;
-  bottom: 0;
   width: 100vw;
 }
   
