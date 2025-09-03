@@ -436,7 +436,7 @@ body {
     flex-grow: 1;
     display: flex; /* Make it a flex container */
     flex-direction: column; /* Stack children vertically */
-    height: 80%; 
+    height: 100vh; 
   }
 
   .chat-header {
