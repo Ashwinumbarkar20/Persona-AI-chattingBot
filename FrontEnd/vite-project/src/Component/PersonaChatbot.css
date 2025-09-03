@@ -435,6 +435,7 @@ body {
   .chat-pane {
     flex-grow: 1;
     overflow-y: auto;
+    position: relative;
   }
 
   .chat-header {
@@ -446,13 +447,16 @@ body {
     padding-top: 101px;
     overflow-y: scroll;
     scrollbar-width: none;
+    padding-bottom: 70px;
   }
 
   .message-row {
     max-width: 90%;
   }
 .input-bar{
-  padding-bottom: 50px;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
 }
   
 }
