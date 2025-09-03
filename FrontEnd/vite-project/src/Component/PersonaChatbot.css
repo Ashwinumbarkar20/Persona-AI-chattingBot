@@ -451,6 +451,8 @@ body {
   .message-row {
     max-width: 90%;
   }
-
+.input-bar{
+  padding-bottom: 50px;
+}
   
 }
