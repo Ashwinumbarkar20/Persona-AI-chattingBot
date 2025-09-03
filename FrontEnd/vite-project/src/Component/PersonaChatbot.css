@@ -434,6 +434,7 @@ body {
 
   .chat-pane {
     flex-grow: 1;
+    overflow-y: auto;
   }
 
   .chat-header {
@@ -442,7 +443,7 @@ body {
   }
 
   .messages {
-    padding: 0.5rem;
+    padding-top: 101px;
     overflow-y: scroll;
     scrollbar-width: none;
   }
