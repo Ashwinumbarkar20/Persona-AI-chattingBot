@@ -465,8 +465,7 @@ body {
     max-width: 90%;
   }
   .input-bar {
-    position: absolute;
-    bottom: 0;
+  
     width: 100vw;
   }
 }
