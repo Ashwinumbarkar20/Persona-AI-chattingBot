@@ -264,10 +264,7 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
                 <TypingDots />
               </div>
             )}
-            <div ref={messagesEndRef} />
-          </section>
-
-          {/* Input Bar */}
+             {/* Input Bar */}
           <footer className="input-bar">
             <textarea
               className="input-textarea"
@@ -288,6 +285,10 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
               <Send size={24} />
             </button>
           </footer>
+            <div ref={messagesEndRef} />
+          </section>
+
+         
         </main>
       </div>
     </div>
