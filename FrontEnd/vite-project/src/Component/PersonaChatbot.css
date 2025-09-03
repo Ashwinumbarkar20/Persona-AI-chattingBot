@@ -449,6 +449,7 @@ body {
     overflow-y: scroll;
     scrollbar-width: none;
     padding-bottom: 70px;
+    align-items: center;
   }
 
   .message-row {
