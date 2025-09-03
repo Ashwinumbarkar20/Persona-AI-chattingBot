@@ -2,20 +2,20 @@
 
 /* Variables and General Styles */
 :root {
-  --primary-bg: #1A1A1A;
+  --primary-bg: #1a1a1a;
   --secondary-bg: #212121;
   --tertiary-bg: #292929;
-  --text-primary: #E0E0E0;
-  --text-secondary: #B0B0B0;
-  --bubble-user: #4B4B4B;
-  --bubble-bot: var(--accent, #6366F1);
-  --accent-light: color-mix(in srgb, var(--accent, #6366F1) 80%, #fff);
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --bubble-user: #4b4b4b;
+  --bubble-bot: var(--accent, #6366f1);
+  --accent-light: color-mix(in srgb, var(--accent, #6366f1) 80%, #fff);
   --border-color: #333;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary-bg);
@@ -24,7 +24,9 @@ body {
   overflow: hidden;
   height: 100%;
 }
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -48,7 +50,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   background-color: var(--secondary-bg);
-  height: 100%
+  height: 100%;
 }
 
 /* Sidebar */
@@ -77,7 +79,7 @@ body {
 }
 
 .close-sidebar-btn {
-  display: none; 
+  display: none;
   background: none;
   border: none;
   color: var(--text-primary);
@@ -110,7 +112,7 @@ body {
 }
 
 .persona-button.active {
-  background-color: var(--accent, #6366F1);
+  background-color: var(--accent, #6366f1);
   color: var(--text-primary);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
@@ -137,7 +139,7 @@ body {
 
 .persona-button.active .persona-avatar {
   background-color: var(--text-primary);
-  color: var(--accent, #6366F1);
+  color: var(--accent, #6366f1);
 }
 
 .persona-meta {
@@ -156,7 +158,7 @@ body {
 }
 
 .persona-button.active .persona-info {
-  color: var(--accent-light, #E0E7FF);
+  color: var(--accent-light, #e0e7ff);
 }
 
 /* Chat Pane */
@@ -202,14 +204,14 @@ body {
 /* Messages */
 
 .messages {
-  flex-grow: 1; 
+  flex-grow: 1;
   padding: 1rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   scrollbar-width: none;
   /* Add this line: */
-  min-height: 0; 
+  min-height: 0;
 }
 
 .empty-state {
@@ -271,7 +273,7 @@ body {
 }
 
 .bubble.bot {
-  background-color: var(--accent, #6366F1);
+  background-color: var(--accent, #6366f1);
   color: #fff;
   border-bottom-left-radius: 4px;
 }
@@ -287,7 +289,7 @@ body {
 }
 
 .message-row.user .message-avatar {
-  background-color: var(--accent, #6366F1);
+  background-color: var(--accent, #6366f1);
   color: #fff;
   margin-left: 0.5rem;
 }
@@ -304,7 +306,7 @@ body {
 }
 
 .bubble.error {
-  background-color: #EF4444;
+  background-color: #ef4444;
   color: #fff;
 }
 
@@ -340,8 +342,14 @@ body {
 }
 
 @keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
 }
 
 /* Input Bar */
@@ -366,12 +374,12 @@ body {
   overflow-y: auto;
   line-height: 1.5;
   transition: border-color 0.2s;
-  max-height: 120px; 
+  max-height: 120px;
 }
 
 .input-textarea:focus {
   outline: none;
-  border-color: var(--accent, #6366F1);
+  border-color: var(--accent, #6366f1);
 }
 
 .input-textarea::placeholder {
@@ -379,7 +387,7 @@ body {
 }
 
 .send-button {
-  background-color: var(--accent, #6366F1);
+  background-color: var(--accent, #6366f1);
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -394,7 +402,7 @@ body {
 }
 
 .send-button:hover:not(:disabled) {
-  background-color: var(--accent-light, #8B5CF6);
+  background-color: var(--accent-light, #8b5cf6);
   transform: scale(1.05);
 }
 
@@ -428,7 +436,8 @@ body {
     transform: translateX(0);
   }
 
-  .close-sidebar-btn, .menu-btn {
+  .close-sidebar-btn,
+  .menu-btn {
     display: block;
   }
 
@@ -436,12 +445,11 @@ body {
     flex-grow: 1;
     display: flex; /* Make it a flex container */
     flex-direction: column; /* Stack children vertically */
-    height: 100%; 
+    height: 100%;
   }
 
   .chat-header {
     justify-content: flex-start;
-    
   }
 
   .messages {
@@ -450,15 +458,15 @@ body {
     scrollbar-width: none;
     padding-bottom: 70px;
     align-items: center;
+    padding-bottom: 80px;
   }
 
   .message-row {
     max-width: 90%;
   }
-.input-bar{
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
-}
-  
+  .input-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+  }
 }
