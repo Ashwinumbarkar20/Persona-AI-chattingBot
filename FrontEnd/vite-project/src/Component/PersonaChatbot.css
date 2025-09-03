@@ -204,7 +204,7 @@ body {
 /* Messages */
 
 .messages {
-  
+  flex-grow: 1;
   padding: 1rem;
   overflow-y: auto;
   display: flex;
@@ -412,14 +412,15 @@ body {
 }
 
 /* Responsive Design */
+/* ... (existing styles) ... */
+
 @media (max-width: 768px) {
   .chat-container {
     flex-direction: column;
     height: 100vh;
     border-radius: 0;
     box-shadow: none;
-    overflow-y: auto;
-    scrollbar-width: none;
+    overflow-y: hidden;
   }
 
   .sidebar {
@@ -443,30 +444,44 @@ body {
 
   .chat-pane {
     flex-grow: 1;
-    display: flex; /* Make it a flex container */
-    flex-direction: column; /* Stack children vertically */
+    display: flex;
+    flex-direction: column;
     height: 100%;
   }
 
   .chat-header {
     justify-content: flex-start;
+    flex-shrink: 0;
   }
 
   .messages {
-    padding-top: 101px;
-    overflow-y: scroll;
+    flex-grow: 1; /* Key change: Messages take up all available space */
+    padding: 1rem;
+    overflow-y: auto;
     scrollbar-width: none;
-    padding-bottom: 70px;
-    align-items: center;
-    padding-bottom: 80px;
+    padding-bottom: 0;
+    align-items: flex-start; /* Correct alignment for messages */
   }
-
+  
   .message-row {
     max-width: 90%;
   }
+
   .input-bar {
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
+    width: 100%;
+    flex-shrink: 0; /* Prevents the input bar from shrinking */
+  }
+
+  /* Corrected mobile avatar alignment for both user and bot messages */
+  .message-row.user {
+      align-self: flex-end;
+  }
+  .message-row.bot {
+      align-self: flex-start;
+  }
+  
+  /* Additional fix for messages alignment within the flex column */
+  .messages {
+    justify-content: flex-end; /* This pushes messages to the bottom */
   }
 }

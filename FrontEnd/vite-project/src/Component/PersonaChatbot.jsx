@@ -265,6 +265,9 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
               </div>
             )}
              {/* Input Bar */}
+          
+            <div ref={messagesEndRef} />
+          </section>
           <footer className="input-bar">
             <textarea
               className="input-textarea"
@@ -285,9 +288,6 @@ Sound exactly like Piyush - energetic, modern, trend-focused, and with that sign
               <Send size={24} />
             </button>
           </footer>
-            <div ref={messagesEndRef} />
-          </section>
-
          
         </main>
       </div>
