@@ -1,12 +1,78 @@
-# React + Vite
+## Persona AI Chatbot (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive, mobile-friendly chatbot UI with multiple tech mentor personas, built with React and Vite.
 
-Currently, two official plugins are available:
+### Features
+- **Multiple personas**: Switch between mentors (Hitesh Choudhary, Piyush Garg)
+- **Responsive UI**: Mobile-first layout, safe-area insets, dynamic viewport units
+- **Smooth chat UX**: Auto-scroll, typing indicator, message bubbles, avatars
+- **Accessible**: Keyboard send (Enter), ARIA labels, readable contrast
+- **Modern stack**: React 19, Vite 7, `lucide-react` icons
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Tech Stack
+- React 19, React DOM 19
+- Vite 7 + `@vitejs/plugin-react`
+- ESLint 9
 
-## Expanding the ESLint configuration
+### Prerequisites
+- Node.js 18+ (Recommended: 20+)
+- npm 9+
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Getting Started
+1) Install dependencies
+```bash
+npm install
+```
+2) Run the dev server
+```bash
+npm run dev
+```
+3) Open the app (default)
+```
+http://localhost:5173
+```
+
+### Scripts
+- `npm run dev` – start Vite dev server
+- `npm run build` – production build to `dist/`
+- `npm run preview` – preview the built app locally
+- `npm run lint` – run ESLint
+
+### Build & Deploy
+1) Build
+```bash
+npm run build
+```
+2) Deploy the `dist/` folder to any static host (Vercel, Netlify, GitHub Pages, etc.).
+
+### Configuration
+- The chat endpoint is currently hard-coded in `src/Component/PersonaChatbot.jsx`:
+```js
+fetch("https://persona-ai-chattingbot.onrender.com/api/chat", { ... })
+```
+If you need a different backend, update that URL accordingly.
+
+### Project Structure (key files)
+```
+src/
+  Component/
+    PersonaChatbot.jsx       # Main chat UI
+    PersonaChatbot.css       # Styles (responsive/mobile tweaks included)
+    TypingDots.jsx           # Typing indicator
+    TypingDots.css
+  main.jsx, App.jsx
+index.html                   # Meta viewport with viewport-fit
+```
+
+### Usage Notes
+- Press Enter to send, Shift+Enter for a new line.
+- On mobile, the sidebar opens via the menu button; it slides over content.
+- Textarea font-size is set to 16px to avoid iOS zoom on focus.
+
+### Troubleshooting
+- **API/CORS errors**: Ensure `https://persona-ai-chattingbot.onrender.com` is reachable. If using another API, verify CORS is enabled server-side.
+- **Port in use**: Change Vite port, e.g. `npm run dev -- --port 5174`.
+- **Blank screen**: Check console for errors; run `npm install` again and restart the dev server.
+
+### License
+This project is for educational/demo purposes. Add your preferred license if distributing.
